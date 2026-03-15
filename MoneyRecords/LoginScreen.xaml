@@ -1,0 +1,109 @@
+﻿<Window x:Class="MoneyRecords.LoginScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoneyRecords"
+        mc:Ignorable="d"
+        Style="{StaticResource MaterialDesignWindow}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="Money Records" Height="500" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF001121"/>
+                <GradientStop Color="Black" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Start Screen -->
+        <Grid Visibility="Visible" x:Name="Welcomescreen_grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Welcome to" Foreground="White" FontSize="24" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="Money Records" Foreground="White" FontSize="36" FontWeight="Bold" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+                <TextBlock Text="One and esiest app to control your money"  TextWrapping="Wrap" Foreground="Gray" FontSize="20" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Margin="0,50,0,0" Background="White" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="155" Height="40" Content="Press to continue" FontSize="15" Click="ToLoginGrid_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Registration Screen -->
+        <Grid Visibility="Hidden" x:Name="Registrationscreen_grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Create an account" Foreground="White" FontSize="25" FontWeight="Bold" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,20,0,0"/>
+            <Border Width="100" Height="100" Background="White" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,0" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+                <TextBlock  x:Name="UserImage_TextBlock" Text="A" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Email:" Foreground="White" FontSize="20" HorizontalAlignment="Left"/>
+                <TextBox x:Name="RegEmailField" Width="350" Foreground="White" FontSize="15" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" Margin="0,10,0,0" HorizontalAlignment="Left" MaxLength="100"/>
+                
+                <TextBlock Text="Login:" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <TextBox x:Name="RegLoginField" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" Foreground="White" FontSize="15" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" Margin="0,10,0,0" HorizontalAlignment="Left" MaxLength="50"/>
+
+                <TextBlock Text="Password:" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <PasswordBox x:Name="RegPasswordField" Width="350" Foreground="White" FontSize="15" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" Margin="0,10,0,0" HorizontalAlignment="Left" MaxLength="64"/>
+
+                <Button Margin="0,20,0,0" Background="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="155" Height="40" Content="Register" FontSize="15" Click="RegistrBtn_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Login Screen -->
+        <Grid Visibility="Hidden" x:Name="Loginscreen_grid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Login" Foreground="White" FontSize="25" FontWeight="Bold" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,20,0,0"/>
+            <Border Width="100" Height="100" Background="White" CornerRadius="15" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,0" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+                <TextBlock Foreground="DarkBlue" Text="A" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="1" Orientation="Vertical">
+                <TextBlock Text="Email / Login:" Foreground="White" FontSize="20" HorizontalAlignment="Left"/>
+                <TextBox x:Name="LogEmailorLoginField" Width="350" Foreground="White" FontSize="15" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" Margin="0,10,0,0" HorizontalAlignment="Left" MaxLength="100"/>
+
+                <TextBlock Text="Password:" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <PasswordBox x:Name="LogPasswordField" Width="350" Foreground="White" FontSize="15" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" Margin="0,10,0,0" HorizontalAlignment="Left" MaxLength="64"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0,20,0,0" Background="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="155" Height="40" Content="Login" FontSize="15" Click="LoginBtn_Click"/>
+                    <Button Margin="20,20,0,0" Background="Transparent" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="155" Height="40" Content="Create an account" FontSize="15" Foreground="Gray" Click="ToRegistrGrid_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,4 +1,5 @@
-﻿using MoneyRecords.ViewModels;
+﻿using MoneyRecords.Models;
+using MoneyRecords.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +18,21 @@ namespace MoneyRecords
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private User _currentUser;
+        private AppDbContext? db;
+        public MainWindow(User user)
         {
             InitializeComponent();
+
+            _currentUser = user;
+            UserNameTextBlock.Text = _currentUser.Name;
             DataContext = new MainViewModel();
+            AppDbContext db = new AppDbContext();
             GetLocalTimeDate();
+            
+            string firstLetter = _currentUser.Name.Substring(0, 1).ToUpper();
+            UserImage_TextBlock.Text = firstLetter;
+            UserImage_TextBlock.Foreground = ColourRandomiser.GetRandomColor().Foreground;
         }
 
         public void GetLocalTimeDate()
