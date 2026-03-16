@@ -1,9 +1,12 @@
 ﻿using MoneyRecords.Models;
 using MoneyRecords.ViewModels;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Printing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,6 +22,7 @@ namespace MoneyRecords
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ICollectionView UsersView;
         private User _currentUser;
         private AppDbContext? db;
         public MainWindow(User user)
@@ -36,7 +40,13 @@ namespace MoneyRecords
             UserNameTextBox.Text = user.Name;
             UserImage_TextBlock.Foreground = ColourRandomiser.GetRandomColor().Foreground;
 
-            UsersList.ItemsSource = db.Users.ToList();
+            using (var database = new AppDbContext())
+            {
+                var users = database.Users.ToList();
+
+                UsersView = CollectionViewSource.GetDefaultView(users);
+                UsersList.ItemsSource = UsersView;
+            }
         }
         public void GetLocalTimeDate()
         {
@@ -62,6 +72,7 @@ namespace MoneyRecords
         private void ShowScreen(ScreenType type)
         {
             HomeGrid.Visibility = Visibility.Hidden;
+            UsersGrid.Visibility = Visibility.Hidden;
 
             switch (type)
             {
@@ -75,6 +86,38 @@ namespace MoneyRecords
             Users
         }
 
-        
+        private void AddNewUserWinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddUser window = new AddUser();
+            window.Owner = this;
+            window.ShowDialog();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string search = SearchBox.Text.ToLower();
+
+            UsersView.Filter = obj =>
+            {
+                User user = obj as User;
+
+                if (user == null)
+                    return false;
+
+                return user.Name.ToLower().Contains(search);
+            };
+        }
+        //private void LoadData()
+        //{
+        //    using (var db = new AppDbContext())
+        //    {
+        //        var collections = new (ItemsControl list, IEnumerable<object> data)[]
+        //        {
+        //            (UsersList, db.Users)
+        //        };
+        //        foreach (var (list, data) in collections)
+        //            list.ItemsSource = data.ToList();
+        //    }
+        //}
     }
 }

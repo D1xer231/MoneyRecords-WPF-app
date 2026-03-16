@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoneyRecords" xmlns:viewmodels="clr-namespace:MoneyRecords.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
         Style="{StaticResource MaterialDesignWindow}"
         WindowStyle="None"
-        Title="Money Records" Height="700" Width="1200" MinHeight="600" MinWidth="900">
+        Title="Money Records" Height="700" Width="1200" MinHeight="600" MinWidth="1000">
     <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
 
         <Grid.Background>
@@ -112,7 +113,7 @@
         </Grid>
 
         <!-- USERS PAGE -->
-        <Grid x:Name="UsersGrid" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="5" Margin="20" Visibility="Visible">
+        <Grid x:Name="UsersGrid" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="5" Margin="20" Visibility="Hidden">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -131,13 +132,13 @@
 
                     <!-- SEARCH -->
                     <Border Background="#1F2937" CornerRadius="8" Padding="8" Margin="0,0,10,0">
-                        <TextBox Width="180" Background="Transparent" BorderThickness="0" Foreground="White" Text="Search..." FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
+                        <TextBox x:Name="SearchBox" Width="180" Background="Transparent" BorderThickness="0" Foreground="White"  FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto" TextChanged="SearchBox_TextChanged"/>
                     </Border>
 
                     <!-- FILTER -->
                     <Button Content="Filter" Margin="0,0,10,0" Padding="12,6" Background="#374151" Foreground="White"  BorderThickness="0" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
                     <!-- ADD USER -->
-                    <Button Content="Add User" Padding="14,6" Background="#10B981" Foreground="White" BorderThickness="0"/>
+                    <Button Content="Add User" Padding="14,6" Background="#10B981" Foreground="White" BorderThickness="0" Click="AddNewUserWinBtn_Click"/>
                 </StackPanel>
             </DockPanel>
 
@@ -156,12 +157,7 @@
                        Margin="0,0,0,10" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
 
                     <!-- USERS TABLE -->
-                    <DataGrid AutoGenerateColumns="False" Background="Transparent" BorderThickness="0" GridLinesVisibility="None" RowBackground="#1F2937"
-                      AlternatingRowBackground="#111827"
-                      Foreground="White"
-                      HeadersVisibility="Column"
-                              ItemsSource="{Binding Users}" x:Name="UsersList">
-
+                    <DataGrid AutoGenerateColumns="False" Background="Transparent" BorderThickness="0" GridLinesVisibility="None" RowBackground="#1F2937" AlternatingRowBackground="#111827"  Foreground="White" HeadersVisibility="Column" ItemsSource="{Binding Users}" x:Name="UsersList" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
@@ -169,13 +165,14 @@
                             <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
                             <DataGridTextColumn Header="When created" Binding="{Binding CreatedAt}" Width="170" FontFamily="/Resources/Roboto/Roboto-Regular.ttf#Roboto"/>
                         </DataGrid.Columns>
-
                     </DataGrid>
-
                 </StackPanel>
-
             </Border>
-
+        </Grid>
+        
+        <!-- Analytics Page -->
+        <Grid Grid.Column="1" Grid.Row="1">
+            <lvc:CartesianChart x:Name="MyChart"/>
         </Grid>
     </Grid>
 </Window>
