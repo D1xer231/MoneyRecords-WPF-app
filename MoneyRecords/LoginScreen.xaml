@@ -9,7 +9,7 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Title="Money Records" Height="500" Width="800">
-    <Grid>
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF001121"/>

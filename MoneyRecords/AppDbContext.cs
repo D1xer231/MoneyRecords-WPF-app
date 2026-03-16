@@ -14,7 +14,7 @@ namespace MoneyRecords
 
         public AppDbContext()
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

@@ -36,10 +36,19 @@ namespace MoneyRecords
 
             var hashedPassword = Password.Hash(password);
 
-            // позже расписать оишбки для каждых полей
-            if (login.Equals("") || !email.Contains("@") || password.Length < 3)
+            if (login.Equals(" ") || email.Contains(" ") || password.Contains(" "))
             {
                 MessageBox.Show("Please fill in all fields!");
+                return;
+            }
+            if (!email.Contains("@") || email.Length < 5)
+            {
+                MessageBox.Show("Invalid Email!");
+                return;
+            }
+            if (login.Length < 1 || password.Length < 4)
+            {
+                MessageBox.Show("Login or password too short!");
                 return;
             }
 
@@ -90,7 +99,6 @@ namespace MoneyRecords
             Registration,
             Login
         }
-
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             string login = LogEmailorLoginField.Text.Trim();
@@ -114,13 +122,17 @@ namespace MoneyRecords
             }
             else
             {
-                MessageBox.Show("User logged in!");
 
                 var mainWindow = new MainWindow(AuthUser);
                 mainWindow.Show();
 
                 this.Close();
             }
+        }
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

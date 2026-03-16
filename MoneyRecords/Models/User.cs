@@ -12,6 +12,9 @@ namespace MoneyRecords.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Status { get; set; } = "Active";
+        public string Role { get; set; } = "User";
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public User() { }
     }

@@ -1,5 +1,6 @@
 ﻿using MoneyRecords.Models;
 using MoneyRecords.ViewModels;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,9 +33,11 @@ namespace MoneyRecords
             
             string firstLetter = _currentUser.Name.Substring(0, 1).ToUpper();
             UserImage_TextBlock.Text = firstLetter;
+            UserNameTextBox.Text = user.Name;
             UserImage_TextBlock.Foreground = ColourRandomiser.GetRandomColor().Foreground;
-        }
 
+            UsersList.ItemsSource = db.Users.ToList();
+        }
         public void GetLocalTimeDate()
         {
             string Time = DateTime.Now.ToString("t");
@@ -42,5 +45,36 @@ namespace MoneyRecords
 
             DateTime_TextBlock.Text = $"{Date} {"|"} {Time}";
         }
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+        private void ToUsersGrid_Click(object sender, RoutedEventArgs e)
+        {
+            ShowScreen(ScreenType.Users);
+        }
+        private void ToHomeGrid_Click(object sender, RoutedEventArgs e)
+        {
+            ShowScreen(ScreenType.Home);
+        }
+
+        private void ShowScreen(ScreenType type)
+        {
+            HomeGrid.Visibility = Visibility.Hidden;
+
+            switch (type)
+            {
+                case ScreenType.Home: HomeGrid.Visibility = Visibility.Visible; break;
+                case ScreenType.Users: UsersGrid.Visibility = Visibility.Visible; break;
+            }
+        }
+        public enum ScreenType
+        {
+            Home,
+            Users
+        }
+
+        
     }
 }
